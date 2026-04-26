@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- 🔥 TOP STATS -->
+<div class="stats">
+
+    <div class="stat-card">
+        <h3>💪 Walk-in</h3>
+        <h1>{{ walkin_today }}</h1>
+    </div>
+    <div class="stat-card">
+        <h3>📅 Monthly</h3>
+        <h1>{{ monthly_today }}</h1>
+    </div>
+
+    <div class="stat-card">
+        <h3>👤 Total Count</h3>
+        <h1>{{ count_today }}</h1>
+    </div>
+
+
+
+    <div class="stat-card">
+        <h3>💰 Earnings</h3>
+        <h1>₱{{ total_today }}</h1>
+    </div>
+
+
+</div>
+
+
+<!-- 🔴 MONTHLY EXPIRING -->
+<div class="card">
+    <h2>🔴 Expiring Monthly Memberships</h2>
+
+    {% for m in expiring %}
+        <p class="danger">
+            {{ m.customer.name }} - {{ m.days_remaining }} days left
+        </p>
+    {% empty %}
+        <p>No expiring memberships</p>
+    {% endfor %}
+</div>
+
+
+<!-- 🔴 YEARLY EXPIRING -->
+<div class="card">
+    <h2>🔴 Expiring Yearly Memberships</h2>
+
+    {% for m in yearly_expiring %}
+        <p class="danger">
+            {{ m.customer.name }} - {{ m.days_remaining }} days left
+        </p>
+    {% empty %}
+        <p>No expiring memberships</p>
+    {% endfor %}
+</div>
+
+
+<!-- ⚙️ ACTIONS -->
+<div class="card">
+    <h2>⚙️ Actions</h2>
+
+    <a class="btn" href="/add-customer/">➕ Add Customer</a>
+    <a class="btn" href="/walkin/">💪 Daily Log</a>
+    <a class="btn" href="/membership/">👤 Membership</a>
+    <a class="btn" href="/monthly/">📅 Monthly Plan</a>
+</div>
+
+
+<!-- 🛒 PRODUCTS -->
+<div class="card">
+    <h2>🛒 Products</h2>
+
+    <a class="btn" href="/pos/">POS</a>
+    <a class="btn" href="/add_inventory/">Add Inventory</a>
+    <a class="btn" href="/products/">Inventory</a>
+</div>
+
+
+<!-- 👥 MANAGEMENT -->
+<div class="card">
+    <h2>👥 Edit & Update</h2>
+
+    <a class="btn" href="/customers/">👥 Customers</a>
+    <a class="btn" href="/members/">👤 Members</a>
+    <a class="btn" href="/monthly-list/">📅 Monthly List</a>
+    <a class="btn" href="/today-logs/">📅 Daily Logs</a>
+    <a class="btn" href="/export-report/">📊 Download Report</a>
+</div>
+
+
+<!-- 🚪 LOGOUT -->
+<div class="card logout-card">
+    <a href="/logout/" class="logout-btn">Logout</a>
+</div>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="card">
+    <h2>✏️ Edit Product</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>Product Name:</label>
+        <input type="text" name="name" value="{{ product.name }}" required>
+
+        <label>Price:</label>
+        <input type="number" name="price" value="{{ product.price }}" required>
+
+        <label>Stock:</label>
+        <input type="number" name="stock" value="{{ product.stock }}" required>
+
+        <br><br>
+
+        <button class="btn" type="submit">Save Changes</button>
+    </form>
+
+    <a class="btn" href="/products/">Back</a>
+</div>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="card">
+    <h2>➕ Add Customer</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <input type="text" name="name" placeholder="Name" required>
+
+        <input type="text" name="contact" placeholder="Contact Number">
+
+        <textarea name="address" placeholder="Address"></textarea>
+
+        <select name="customer_type">
+            <option value="regular">Regular</option>
+            <option value="student">Student</option>
+        </select>
+
+        <button class="btn" type="submit">Save</button>
+    </form>
+
+    <a class="btn" href="/">Back</a>
+</div>
+
+{% endblock %}

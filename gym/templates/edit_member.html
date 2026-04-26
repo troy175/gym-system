@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="card">
+    <h2>✏️ Edit Member</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <!-- READ ONLY INFO -->
+        <p><strong>Name:</strong> {{ customer.name }}</p>
+        <p><strong>Contact:</strong> {{ customer.contact_number }}</p>
+        <p><strong>Address:</strong> {{ customer.address }}</p>
+
+        <hr>
+
+        <!-- MEMBERSHIP START -->
+        <label>Membership Start Date:</label>
+        <input type="date" name="start_date"
+               value="{{ membership_log.start_date|date:'Y-m-d' }}">
+
+        <br><br>
+
+        <!-- MEMBERSHIP END -->
+        <label>Membership End Date:</label>
+        <input type="date" name="end_date"
+               value="{{ membership_log.end_date|date:'Y-m-d' }}">
+
+        <br><br>
+
+        <button class="btn" type="submit">Save Changes</button>
+    </form>
+
+    <a class="btn" href="/members/">Back</a>
+</div>
+
+{% endblock %}

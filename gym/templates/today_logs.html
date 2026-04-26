@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="card">
+    <h2>📋 Today’s Gym Attendance</h2>
+
+    {% for log in logs %}
+        <div style="padding:10px; border-bottom:1px solid #444;">
+
+            <strong>{{ log.customer.name }}</strong><br>
+
+            Entry: {{ log.entry_type }}<br>
+
+            {% if log.walkin_type %}
+                Type: {{ log.walkin_type }}<br>
+            {% endif %}
+
+            Paid: ₱{{ log.amount_paid }}<br>
+            Change: ₱{{ log.change }}
+
+        </div>
+    {% empty %}
+        <p>No one logged today</p>
+    {% endfor %}
+</div>
+
+<a class="btn" href="/">Back</a>
+
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="card">
+    <h2>🛒 POS</h2>
+
+    <!-- PRODUCTS -->
+    <div id="products">
+        {% for p in products %}
+            <button type="button" class="btn" onclick="addToCart({{ p.id }}, '{{ p.name }}', {{ p.price }})">
+                {{ p.name }} (₱{{ p.price }})
+            </button>
+        {% endfor %}
+    </div>
+
+    <hr>
+
+    <!-- CART -->
+    <h3>🧾 Orders</h3>
+    <div id="cart"></div>
+
+    <h3>Total: ₱<span id="total">0</span></h3>
+
+    <!-- FORM -->
+    <form method="POST">
+        {% csrf_token %}
+        <div id="hidden_inputs"></div>
+
+        <button class="btn" type="submit">Checkout</button>
+    </form>
+
+    <a class="btn" href="/">Back</a>
+</div>
+
+<script>
+let cart = {};
+let total = 0;
+
+function addToCart(id, name, price) {
+    if (!cart[id]) {
+        cart[id] = {name: name, price: price, qty: 0};
+    }
+
+    cart[id].qty += 1;
+    updateCart();
+}
+
+function updateCart() {
+    let cartDiv = document.getElementById('cart');
+    let hidden = document.getElementById('hidden_inputs');
+
+    cartDiv.innerHTML = "";
+    hidden.innerHTML = "";
+    total = 0;
+
+    for (let id in cart) {
+        let item = cart[id];
+        let subtotal = item.price * item.qty;
+        total += subtotal;
+
+        // show cart
+        cartDiv.innerHTML += `
+            <p>${item.name} x ${item.qty} = ₱${subtotal}</p>
+        `;
+
+        // hidden inputs for Django
+        hidden.innerHTML += `
+            <input type="hidden" name="product" value="${id}">
+            <input type="hidden" name="qty" value="${item.qty}">
+        `;
+    }
+
+    document.getElementById('total').innerText = total;
+}
+</script>
+
+{% endblock %}

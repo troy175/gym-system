@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="card">
+    <h2>👤 Register Membership</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <!-- MAIN CUSTOMER -->
+        <div style="display:flex; gap:10px; align-items:center;">
+            <select name="customer" style="flex:1;" required>
+                <option value="">Select customer...</option>
+                {% for c in customers %}
+                    <option value="{{ c.id }}">{{ c.name }}</option>
+                {% endfor %}
+            </select>
+
+            <a href="/add-customer/" class="btn">➕</a>
+        </div>
+
+        <!-- TYPE -->
+        <label>Type:</label>
+        <select name="entry_type" id="payment_type" onchange="toggleMembership()" required>
+            <option value="">- Select Here -</option>
+            <option value="membership">Membership (899)</option>
+            <option value="promo">Promo 2 for 799</option>
+        </select>
+
+        <!-- SECOND CUSTOMER (PROMO ONLY) -->
+        <div id="promo_section" style="display:none;">
+            <label>Second Member:</label>
+            <select name="second_customer">
+                <option value="">Select second customer...</option>
+                {% for c in customers %}
+                    <option value="{{ c.id }}">{{ c.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <label>Start Date:</label>
+        <input type="date" name="start_date" required>
+
+        <!-- PRICE DISPLAY -->
+        <p id="price_display">Price: ₱0</p>
+
+        <!-- 🔥 HIDDEN PRICE INPUT -->
+        <input type="hidden" name="price" id="price_input">
+
+        <!-- PAYMENT -->
+        <input type="number" name="amount" placeholder="Amount Paid" oninput="computeChange()" required>
+
+        <p id="change_display">Change: ₱0</p>
+
+        <button class="btn" type="submit">Save</button>
+    </form>
+
+    <a class="btn" href="/">Back</a>
+</div>
+
+<script>
+let price = 0;
+
+// toggle promo section
+function toggleMembership() {
+    let type = document.getElementById('payment_type').value;
+    let promoSection = document.getElementById('promo_section');
+    let secondCustomer = promoSection.querySelector('select');
+
+    if (type === 'promo') {
+        promoSection.style.display = 'block';
+        secondCustomer.required = true;
+    } else {
+        promoSection.style.display = 'none';
+        secondCustomer.required = false;
+    }
+
+    updatePrice();
+}
+
+// update price
+function updatePrice() {
+    let type = document.getElementById('payment_type').value;
+
+    if (type === 'promo') price = 799;
+    else if (type === 'membership') price = 899;
+    else price = 0;
+
+    updateDisplay();
+}
+
+// update UI + send to backend
+function updateDisplay() {
+    document.getElementById('price_display').innerText = "Price: ₱" + price;
+
+    // 🔥 send to Django
+    document.getElementById('price_input').value = price;
+
+    computeChange();
+}
+
+// compute change
+function computeChange() {
+    let amount = document.querySelector('[name="amount"]').value || 0;
+    let change = amount - price;
+
+    document.getElementById('change_display').innerText = "Change: ₱" + change;
+}
+</script>
+
+{% endblock %}

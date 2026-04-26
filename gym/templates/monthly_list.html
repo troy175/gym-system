@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="card">
+    <h2>📅 Active Monthly Plans</h2>
+
+    {% for m in monthly %}
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+            
+            <p style="flex:1;">
+                {{ m.customer.name }} - 
+                {{ m.start_date }} - {{ m.end_date }}
+            </p>
+
+            <!-- EDIT -->
+            <a class="btn" href="/edit-monthly/{{ m.id }}/">Edit</a>
+
+            <!-- 🔥 DELETE -->
+            <form method="POST" action="/delete-monthly/{{ m.id }}/" style="display:inline;">
+                {% csrf_token %}
+                <button class="btn" style="background:red;"
+                onclick="return confirm('Delete this monthly plan?')">
+                    Delete
+                </button>
+            </form>
+
+        </div>
+    {% empty %}
+        <p>No active monthly plans</p>
+    {% endfor %}
+
+    <a class="btn" href="/">Back</a>
+
+</div>
+
+{% endblock %}

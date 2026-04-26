@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="card">
+    <h2>📅 Edit Monthly Plan</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>Plan:</label>
+        <select name="plan">
+            <option value="1_month" {% if monthly.plan == '1_month' %}selected{% endif %}>1 Month</option>
+            <option value="3_months" {% if monthly.plan == '3_months' %}selected{% endif %}>3 Months</option>
+            <option value="12_months" {% if monthly.plan == '12_months' %}selected{% endif %}>12 Months</option>
+        </select>
+
+        <br><br>
+
+        <!-- 🔥 START DATE -->
+        <label>Start Date:</label>
+        <input type="date" name="start_date" value="{{ monthly.start_date|date:'Y-m-d' }}">
+
+        <br><br>
+
+        <!-- 🔥 END DATE -->
+        <label>End Date:</label>
+        <input type="date" name="end_date" value="{{ monthly.end_date|date:'Y-m-d' }}">
+
+        <br><br>
+
+        <button class="btn" type="submit">Save Changes</button>
+    </form>
+
+    <a class="btn" href="/monthly-list/">Back</a>
+</div>
+
+{% endblock %}

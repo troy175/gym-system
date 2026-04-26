@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gym System</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background-color: #121212;
+            color: white;
+        }
+
+        .hero {
+            height: 250px;
+            background: url("https://images.unsplash.com/photo-1599058917765-a780eda07a3e") center/cover no-repeat;
+            display: flex;
+            align-items: flex-end;
+            padding: 20px;
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .card {
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 18px;
+            margin: 5px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+        .btn:hover {
+            background: #0056b3;
+        }
+
+        input, select, textarea {
+            padding: 8px;
+            width: 100%;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        .danger {
+            color: red;
+        }
+
+        .logout-card {
+            background-color: #ff4d4d;
+            text-align: center;
+            padding: 5px;        /* 🔥 mas maliit */
+            border-radius: 8px;  /* optional, mas clean */
+        }
+
+        .logout-btn {
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;  /* 🔥 instead of block */
+            padding: 6px 12px;      /* 🔥 mas maliit */
+            font-size: 14px;        /* 🔥 smaller text */
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: #1e1e1e;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            border-left: 5px solid #4da6ff;
+        }
+
+        .stat-card h1 {
+            margin: 5px 0;
+            font-size: 28px;
+        }
+
+        .stat-card h3 {
+            font-size: 14px;
+            color: #aaa;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="hero">
+        Fitness CAMP
+    </div>
+
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+</body>
+</html>
