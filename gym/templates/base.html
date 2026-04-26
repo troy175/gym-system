@@ -61,19 +61,25 @@
         }
 
         .logout-card {
-            background-color: #ff4d4d;
             text-align: center;
-            padding: 5px;        /* 🔥 mas maliit */
-            border-radius: 8px;  /* optional, mas clean */
+            background: transparent;
+            box-shadow: none;
+            margin-top: 20px;
         }
 
         .logout-btn {
+            background: #ef4444;
             color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
             font-weight: bold;
-            text-decoration: none;
-            display: inline-block;  /* 🔥 instead of block */
-            padding: 6px 12px;      /* 🔥 mas maliit */
-            font-size: 14px;        /* 🔥 smaller text */
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: #dc2626;
         }
         .stats {
             display: grid;
