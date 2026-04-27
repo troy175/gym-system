@@ -26,4 +26,5 @@ urlpatterns = [
     path('today-logs/', views.today_logs, name='today_logs'),
     path('edit-member/<int:id>/', views.edit_member, name='edit_member'),
     path('export-report/', views.export_report, name='export_report'),
+    path('create-admin/', views.create_admin),
 ]

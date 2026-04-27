@@ -9,6 +9,8 @@ from .models import MembershipLog
 import pandas as pd
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.http import HttpResponse
 
 @login_required
 def home(request):
@@ -521,3 +523,9 @@ def export_report(request):
         df_sales.to_excel(writer, sheet_name='Sales', index=False)
 
     return response
+
+def create_admin(request):
+    if not User.objects.filter(username='fitnesscamp').exists():
+        User.objects.create_superuser('fitnesscamp', 'fitnesscamp@gmail.com', 'fitnesscamp2024')
+        return HttpResponse("Admin created")
+    return HttpResponse("Already exists")
